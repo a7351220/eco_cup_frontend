@@ -1,0 +1,270 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --leaf-color: #4caf50;
+  --leaf-light: #81c784;
+  --leaf-dark: #1b5e20;
+  --background-start: #e8f5e9;
+  --background-end: #c8e6c9;
+}
+
+body {
+  background: linear-gradient(180deg, var(--background-start) 0%, var(--background-end) 100%);
+  color: var(--leaf-dark);
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.leaf {
+  position: absolute;
+  opacity: 0.1;
+  z-index: -1;
+}
+
+.leaf1 {
+  top: 10%;
+  left: 10%;
+  transform: rotate(45deg);
+  font-size: 120px;
+}
+
+.leaf2 {
+  top: 40%;
+  right: 15%;
+  transform: rotate(-30deg);
+  font-size: 90px;
+}
+
+.leaf3 {
+  bottom: 20%;
+  left: 15%;
+  transform: rotate(20deg);
+  font-size: 100px;
+}
+
+.eco-container {
+  max-width: 450px;
+  margin: 0 auto;
+  padding: 20px;
+  height: 100vh;
+  position: relative;
+}
+
+.eco-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 15px;
+  position: sticky;
+  top: 0;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  z-index: 10;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.eco-section {
+  min-height: 90vh;
+  scroll-snap-align: start;
+  padding: 20px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.eco-card {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 20px;
+  padding: 25px;
+  margin-bottom: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.stat-container {
+  display: flex;
+  justify-content: space-between;
+  background: #e8f5e9;
+  padding: 15px;
+  border-radius: 15px;
+  margin-bottom: 15px;
+}
+
+.stat-label {
+  font-size: 0.8rem;
+  color: #558b2f;
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1b5e20;
+}
+
+.eco-btn {
+  background: #4caf50;
+  color: white;
+  border: none;
+  padding: 15px;
+  border-radius: 12px;
+  font-weight: 600;
+  width: 100%;
+  font-size: 1rem;
+  margin-top: 10px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+}
+
+.eco-btn:hover {
+  background: #43a047;
+  transform: translateY(-2px);
+}
+
+.eco-btn:disabled {
+  background: #cccccc;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.eco-btn-outline {
+  background: transparent;
+  border: 2px solid #4caf50;
+  color: #4caf50;
+}
+
+.eco-btn-outline:hover {
+  background: rgba(76, 175, 80, 0.1);
+}
+
+.progress-bar {
+  height: 10px;
+  background: #e0e0e0;
+  border-radius: 5px;
+  margin: 10px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.verification-steps {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.step-circle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+}
+
+.step-complete {
+  background: #81c784;
+  color: white;
+}
+
+.step-incomplete {
+  background: #e0e0e0;
+  color: #757575;
+}
+
+.rewards-card {
+  background: linear-gradient(135deg, #43a047 0%, #2e7d32 100%);
+  color: white;
+  padding: 20px;
+  border-radius: 15px;
+  margin-bottom: 20px;
+}
+
+.camera-area {
+  background: rgba(0, 0, 0, 0.05);
+  height: 200px;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 15px 0;
+  border: 2px dashed #a5d6a7;
+}
+
+.nav-dots {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  position: fixed;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 50%;
+  margin: 0 5px;
+}
+
+.dot.active {
+  background: #4caf50;
+  width: 20px;
+  border-radius: 10px;
+}
+
+/* Camera and Verification Styles */
+.camera-preview {
+  width: 100%;
+  height: auto;
+  max-height: 300px;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #f1f1f1;
+  margin: 0 auto;
+  display: block;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  border-top-color: #3b82f6;
+  animation: spin 1s ease-in-out infinite;
+  margin: 0 auto;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.eco-btn-secondary {
+  @apply px-4 py-2 bg-gray-200 text-gray-700 rounded-lg font-medium transition duration-200;
+}
+
+.eco-btn-secondary:hover {
+  @apply bg-gray-300;
+}
+
+.eco-btn-secondary:disabled {
+  @apply opacity-50 cursor-not-allowed;
+}
+
+.hidden {
+  display: none;
+} 
