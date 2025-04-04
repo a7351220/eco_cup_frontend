@@ -3,10 +3,13 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import ThemeSwitch from '@/components/features/ThemeSwitch';
-import { navigation } from '@/lib/constants/navigation';
-import { NavigationProps } from '@/lib/types/layout';
 
-export default function Sidebar({ isOpen, toggleOpen }: NavigationProps) {
+interface SidebarProps {
+  isOpen: boolean;
+  toggleOpen: () => void;
+}
+
+export default function Sidebar({ isOpen, toggleOpen }: SidebarProps) {
   const pathname = usePathname();
 
   return (
@@ -16,33 +19,8 @@ export default function Sidebar({ isOpen, toggleOpen }: NavigationProps) {
           duration-300 bg-neutral-50 dark:bg-black`}
     >
       <div className="relative h-full p-4 rounded-xl flex flex-col justify-between overflow-y-auto">
-        <ul className="space-y-2 font-medium">
-          {navigation.map((item) => (
-            <li key={item.name}>
-              <Link
-                href={item.href}
-                className={`
-                  flex items-center px-6 py-4 rounded-lg
-                  transition-colors duration-200
-                  ${
-                    pathname === item.href
-                      ? 'bg-primary/10 text-primary font-medium'
-                      : 'hover:bg-gray5-light dark:hover:bg-gray5-dark'
-                  }
-                `}
-                onClick={toggleOpen}
-              >
-                <item.icon
-                  className={`w-6 h-6 ${
-                    pathname === item.href ? 'text-primary' : ''
-                  }`}
-                />
-                <span className="ml-3">{item.name}</span>
-              </Link>
-            </li>
-          ))}
-        </ul>
-
+        {/* Navigation removed as requested */}
+        
         <ThemeSwitch className="mx-auto" />
       </div>
     </aside>

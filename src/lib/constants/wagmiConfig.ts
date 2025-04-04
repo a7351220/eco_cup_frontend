@@ -1,6 +1,6 @@
 import '@rainbow-me/rainbowkit/styles.css';
 import { http, fallback } from 'wagmi';
-import { arbitrum, base, mainnet, sepolia } from 'wagmi/chains';
+import { arbitrum, base, mainnet, sepolia, type Chain } from 'wagmi/chains';
 import { getDefaultConfig, WalletList } from '@rainbow-me/rainbowkit';
 import {
   coinbaseWallet,
@@ -17,6 +17,35 @@ import {
   uniswapWallet,
   walletConnectWallet,
 } from '@rainbow-me/rainbowkit/wallets';
+
+/**
+ * Base Sepolia testnet configuration
+ * @description Base Sepolia testnet
+ */
+export const baseSepolia: Chain = {
+  id: 84532,
+  name: 'Base Sepolia',
+  nativeCurrency: {
+    decimals: 18,
+    name: 'Sepolia Ether',
+    symbol: 'ETH',
+  },
+  rpcUrls: {
+    default: {
+      http: ['https://sepolia.base.org'],
+    },
+    public: {
+      http: ['https://sepolia.base.org'],
+    },
+  },
+  blockExplorers: {
+    default: {
+      name: 'BaseScan',
+      url: 'https://sepolia.basescan.org',
+    },
+  },
+  testnet: true,
+};
 
 /**
  * WalletConnect Project ID
@@ -45,6 +74,9 @@ const RPC_URLS = {
     'https://base-rpc.publicnode.com', // Public Node
     'https://base.llamarpc.com', // Llama
   ],
+  BASE_SEPOLIA: [
+    'https://sepolia.base.org', // Official Base Sepolia RPC
+  ],
 } as const;
 
 /**
@@ -55,6 +87,7 @@ const transports = {
   [mainnet.id]: fallback(RPC_URLS.MAINNET.map((url) => http(url))),
   [arbitrum.id]: fallback(RPC_URLS.ARBITRUM.map((url) => http(url))),
   [base.id]: fallback(RPC_URLS.BASE.map((url) => http(url))),
+  [baseSepolia.id]: fallback(RPC_URLS.BASE_SEPOLIA.map((url) => http(url))),
 };
 
 //const { wallets } = getDefaultWallets();
@@ -66,32 +99,25 @@ const wallets: WalletList = [
       metaMaskWallet,
       rainbowWallet,
       rabbyWallet,
-      ledgerWallet,
       walletConnectWallet,
     ],
   },
   {
     groupName: 'Other Wallets',
     wallets: [
-      phantomWallet,
-      coinbaseWallet,
-      coin98Wallet,
-      trustWallet,
-      uniswapWallet,
       injectedWallet,
       okxWallet,
-      safeWallet,
     ],
   },
 ];
 
 export const wagmiConfig = getDefaultConfig({
-  appName: 'Next dApp Template',
+  appName: 'CupFi',
   projectId: projectId,
   wallets: wallets,
   chains: [
+    baseSepolia, // Base Sepolia testnet
     mainnet,
-    arbitrum,
     base,
     ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? [sepolia] : []),
   ],

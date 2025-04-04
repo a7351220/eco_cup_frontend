@@ -1,20 +1,18 @@
 import type { Metadata, Viewport } from 'next';
 
-const DOMAIN = 'next-dapp-matteocelani.vercel.app';
-
 const siteConfig = {
-  title: 'Next.js dApp',
+  title: 'CupFi',
   description:
-    'Next.js dApp template with Tailwind CSS and RainbowKit built in TypeScript.',
+    'CupFi - Sustainable blockchain solutions for a greener future.',
   keywords:
-    'React, Next.js, Tailwind CSS, Sass, RainbowKit, Solidity, Hardhat, ethers.js, Blockchain, TypeScript',
-  author: 'Matteo Celani',
-  url: DOMAIN,
-  image: `${DOMAIN}/img/logo.png`,
+    'CupFi, Sustainability, Blockchain, Green Technology, Eco-friendly, Web3',
+  author: 'CupFi Team',
+  url: '/',
+  image: '/img/cupfi_logo.svg',
 } as const;
 
 export const viewport: Viewport = {
-  themeColor: '#f2f2f7',
+  themeColor: '#4CAF50',
   width: 'device-width',
   initialScale: 1,
   maximumScale: 1,
@@ -22,24 +20,22 @@ export const viewport: Viewport = {
 } as const;
 
 export const metadata: Metadata = {
-  metadataBase: new URL(`https://${DOMAIN}`),
   title: siteConfig.title,
   description: siteConfig.description,
   keywords: siteConfig.keywords,
   authors: [{ name: siteConfig.author }],
   manifest: '/site.webmanifest',
   icons: {
-    apple: [
-      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
-    ],
     icon: [
-      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
-      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/img/cupfi_logo.svg', type: 'image/svg+xml' }
+    ],
+    shortcut: '/img/cupfi_logo.svg',
+    apple: [
+      { url: '/img/cupfi_logo.svg', type: 'image/svg+xml' }
     ],
   },
   openGraph: {
     type: 'website',
-    url: siteConfig.url,
     title: siteConfig.title,
     description: siteConfig.description,
     images: [{ url: siteConfig.image }],
