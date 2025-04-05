@@ -2,8 +2,9 @@
 
 import { useState } from 'react';
 import { useAccount } from 'wagmi';
-import { useStakingPool } from '@/hooks';
+import { useStakingPool, useSelfVerification } from '@/hooks';
 import CustomConnectButton from '@/components/ui/CustomConnectButton';
+import SelfVerification from './SelfVerification';
 
 export default function VerticalStakingCard() {
   const { address, isConnected } = useAccount();
@@ -18,6 +19,7 @@ export default function VerticalStakingCard() {
     isStakeSuccess,
     isWithdrawSuccess,
   } = useStakingPool();
+  const { isIdentityVerified } = useSelfVerification();
 
   const [stakeAmount, setStakeAmount] = useState('0.0001');
   const [withdrawAmount, setWithdrawAmount] = useState('0');
@@ -83,97 +85,107 @@ export default function VerticalStakingCard() {
         </div>
       </div>
       
-      <div className="stat-container">
-        <div>
-          <div className="stat-label">Staked Amount</div>
-          <div className="stat-value">{stakedAmount} ETH</div>
+      {!isIdentityVerified ? (
+        <div className="my-4">
+          <div className="mb-2 font-medium text-green-800"></div>
+          <SelfVerification />
         </div>
-        <div>
-          <div className="stat-label">Staking Status</div>
-          <div className="stat-value" style={{ color: parseFloat(stakedAmount) >= 0.0001 ? '#4caf50' : '#9e9e9e' }}>
-            {parseFloat(stakedAmount) >= 0.0001 ? 'Active' : 'Inactive'}
+      ) : (
+        <>
+          <div className="stat-container">
+            <div>
+              <div className="stat-label">Staked Amount</div>
+              <div className="stat-value">{stakedAmount} ETH</div>
+            </div>
+            <div>
+              <div className="stat-label">Staking Status</div>
+              <div className="stat-value" style={{ color: parseFloat(stakedAmount) >= 0.0001 ? '#4caf50' : '#9e9e9e' }}>
+                {parseFloat(stakedAmount) >= 0.0001 ? 'Active' : 'Inactive'}
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
 
-      <div className="mt-6">
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-green-800 mb-2">Stake Amount</label>
-          <div className="relative flex items-center bg-white rounded-lg overflow-hidden shadow-sm border border-gray-300">
-            <input
-              type="number"
-              className="w-full p-3 bg-transparent border-none focus:outline-none"
-              value={stakeAmount}
-              onChange={(e) => setStakeAmount(e.target.value)}
-              min="0.0001"
-              step="0.0001"
-              style={{ appearance: 'textfield' }}
-            />
-            <span className="pr-3 font-medium text-gray-600">ETH</span>
+          <div className="mt-6">
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-green-800 mb-2">Stake Amount</label>
+              <div className="relative flex items-center bg-white rounded-lg overflow-hidden shadow-sm border border-gray-300">
+                <input
+                  type="number"
+                  className="w-full p-3 bg-transparent border-none focus:outline-none"
+                  value={stakeAmount}
+                  onChange={(e) => setStakeAmount(e.target.value)}
+                  min="0.0001"
+                  step="0.0001"
+                  style={{ appearance: 'textfield' }}
+                />
+                <span className="pr-3 font-medium text-gray-600">ETH</span>
+              </div>
+              {!isValidStakeAmount && (
+                <p className="text-red-500 text-xs mt-1">Minimum stake amount is 0.0001 ETH</p>
+              )}
+            </div>
+            
+            <button
+              className="eco-btn"
+              onClick={handleStake}
+              disabled={!isValidStakeAmount || isStakePending || isStakeLoading}
+            >
+              {isStakePending || isStakeLoading ? 'Processing...' : 'Stake ETH'}
+            </button>
+            
+            {isStakeSuccess && (
+              <p className="text-green-500 text-xs mt-2 text-center">Staking successful!</p>
+            )}
           </div>
-          {!isValidStakeAmount && (
-            <p className="text-red-500 text-xs mt-1">Minimum stake amount is 0.0001 ETH</p>
-          )}
-        </div>
-        
-        <button
-          className="eco-btn"
-          onClick={handleStake}
-          disabled={!isValidStakeAmount || isStakePending || isStakeLoading}
-        >
-          {isStakePending || isStakeLoading ? 'Processing...' : 'Stake ETH'}
-        </button>
-        
-        {isStakeSuccess && (
-          <p className="text-green-500 text-xs mt-2 text-center">Staking successful!</p>
-        )}
-      </div>
-      
-      <div className="mt-6">
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-green-800 mb-2">Withdraw Amount</label>
-          <div className="relative flex items-center bg-white rounded-lg overflow-hidden shadow-sm border border-gray-300">
-            <input
-              type="number"
-              className="w-full p-3 bg-transparent border-none focus:outline-none"
-              value={withdrawAmount}
-              onChange={(e) => setWithdrawAmount(e.target.value)}
-              min="0"
-              max={stakedAmount}
-              step="0.0001"
-              style={{ appearance: 'textfield' }}
-            />
-            <span className="pr-3 font-medium text-gray-600">ETH</span>
+          
+          <div className="mt-6">
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-green-800 mb-2">Withdraw Amount</label>
+              <div className="relative flex items-center bg-white rounded-lg overflow-hidden shadow-sm border border-gray-300">
+                <input
+                  type="number"
+                  className="w-full p-3 bg-transparent border-none focus:outline-none"
+                  value={withdrawAmount}
+                  onChange={(e) => setWithdrawAmount(e.target.value)}
+                  min="0"
+                  max={stakedAmount}
+                  step="0.0001"
+                  style={{ appearance: 'textfield' }}
+                />
+                <span className="pr-3 font-medium text-gray-600">ETH</span>
+              </div>
+              <button
+                className="text-green-600 text-xs mt-1"
+                onClick={handleSetMaxWithdraw}
+              >
+                Max
+              </button>
+              {!isValidWithdrawAmount && withdrawAmount !== '0' && (
+                <p className="text-red-500 text-xs mt-1">Invalid withdrawal amount</p>
+              )}
+            </div>
+            
+            <button
+              className="eco-btn eco-btn-outline"
+              onClick={handleWithdraw}
+              disabled={!isValidWithdrawAmount || isWithdrawPending || isWithdrawLoading}
+            >
+              {isWithdrawPending || isWithdrawLoading ? 'Processing...' : 'Withdraw ETH'}
+            </button>
+            
+            {isWithdrawSuccess && (
+              <p className="text-green-500 text-xs mt-2 text-center">Withdrawal successful!</p>
+            )}
           </div>
-          <button
-            className="text-green-600 text-xs mt-1"
-            onClick={handleSetMaxWithdraw}
-          >
-            Max
-          </button>
-          {!isValidWithdrawAmount && withdrawAmount !== '0' && (
-            <p className="text-red-500 text-xs mt-1">Invalid withdrawal amount</p>
-          )}
-        </div>
-        
-        <button
-          className="eco-btn eco-btn-outline"
-          onClick={handleWithdraw}
-          disabled={!isValidWithdrawAmount || isWithdrawPending || isWithdrawLoading}
-        >
-          {isWithdrawPending || isWithdrawLoading ? 'Processing...' : 'Withdraw ETH'}
-        </button>
-        
-        {isWithdrawSuccess && (
-          <p className="text-green-500 text-xs mt-2 text-center">Withdrawal successful!</p>
-        )}
-      </div>
 
-      <div className="mt-6 text-sm text-gray-600 bg-green-50 p-4 rounded-lg">
-        <p className="mb-1">• Minimum stake amount is 0.0001 ETH</p>
-        <p className="mb-1">• After staking, you can participate in eco-cup verification activities</p>
-        <p>• Complete 3 verifications daily to earn rewards</p>
-      </div>
+          <div className="mt-6 text-sm text-gray-600 bg-green-50 p-4 rounded-lg">
+            <p className="mb-1">• Complete identity verification first using Self app</p>
+            <p className="mb-1">• Minimum stake amount is 0.0001 ETH</p>
+            <p className="mb-1">• After staking, you can participate in eco-cup verification activities</p>
+            <p>• Complete 3 verifications daily to earn rewards</p>
+          </div>
+        </>
+      )}
     </div>
   );
 } 
