@@ -33,38 +33,22 @@ export const useVerificationRegistry = () => {
     useEffect(() => {
         if (userVerifications && Array.isArray(userVerifications)) {
             const processedData = processUserVerifications();
-            console.log('User verification data updated:', processedData);
             setLocalVerificationCount(processedData.count);
         }
     }, [userVerifications]);
 
-    useEffect(() => {
-        if (address) {
-            console.log('Current connected address:', address);
-        }
-
-        if (verificationCount !== undefined) {
-            console.log('Verification count from contract:', verificationCount);
-        }
-
-        if (userVerifications) {
-            console.log('User verifications raw data:', userVerifications);
-        }
-    }, [address, verificationCount, userVerifications]);
 
     useWatchContractEvent({
         address: contractsConfig.VerificationRegistry.address,
         abi: contractsConfig.VerificationRegistry.abi,
         eventName: 'VerificationRecorded',
         onLogs: (logs) => {
-            console.log('Received verification events:', logs);
 
             const userEvents = logs.filter(log => {
                 try {
                     // @ts-ignore: auto type inference may be wrong, but we know the event structure
                     const eventUser = log.args?.user?.toLowerCase();
                     const isMatch = address && eventUser === address.toLowerCase();
-                    console.log(`Event user: ${eventUser}, Current user: ${address}, Match: ${isMatch}`);
                     return isMatch;
                 } catch (err) {
                     console.error('Error filtering events:', err);
@@ -73,12 +57,10 @@ export const useVerificationRegistry = () => {
             });
 
             if (userEvents.length > 0) {
-                console.log('Detected verification event for current user', userEvents);
                 const latestEvent = userEvents[userEvents.length - 1];
                 try {
                     // @ts-ignore: auto type inference may be wrong, but we know the event structure
                     const count = Number(latestEvent.args?.count || 0);
-                    console.log('Setting count from event:', count);
                     setLocalVerificationCount(count);
 
                     setTimeout(() => {
@@ -96,7 +78,6 @@ export const useVerificationRegistry = () => {
 
     useEffect(() => {
         if (address) {
-            console.log('Fetching initial data for address:', address);
             refetchVerificationCount();
             refetchCanClaimReward();
             refetchUserVerifications();
@@ -105,7 +86,6 @@ export const useVerificationRegistry = () => {
 
     const processUserVerifications = () => {
         if (!userVerifications || !Array.isArray(userVerifications)) {
-            console.log('No user verification data available');
             return { date: 0, count: 0, rewardClaimed: false };
         }
 
@@ -115,10 +95,8 @@ export const useVerificationRegistry = () => {
                 count: Number(userVerifications[1] || 0),
                 rewardClaimed: Boolean(userVerifications[2])
             };
-            console.log('Processed user verification data:', result);
             return result;
         } catch (err) {
-            console.error('Error processing user verification data:', err);
             return { date: 0, count: 0, rewardClaimed: false };
         }
     };
@@ -131,13 +109,6 @@ export const useVerificationRegistry = () => {
         localVerificationCount,
         verificationCount && typeof verificationCount === 'bigint' ? Number(verificationCount) : 0
     );
-
-    console.log('Final verification count:', {
-        directCount: directVerificationCount,
-        localCount: localVerificationCount,
-        contractCount: verificationCount && typeof verificationCount === 'bigint' ? Number(verificationCount) : 0,
-        finalCount: finalVerificationCount
-    });
 
     return {
         verificationCount: finalVerificationCount,
