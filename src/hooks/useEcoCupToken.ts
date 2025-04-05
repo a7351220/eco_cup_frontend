@@ -10,7 +10,8 @@ export const useEcoCupToken = () => {
     const { contracts, chainId } = useNetworkConfig();
 
     const { data: tokenBalance, refetch: refetchBalance } = useReadContract({
-        ...contracts.EcoCupToken,
+        abi: contracts.EcoCupToken.abi,
+        address: contracts.EcoCupToken.address as `0x${string}`,
         functionName: 'balanceOf',
         args: [address],
         chainId,

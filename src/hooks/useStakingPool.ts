@@ -11,7 +11,8 @@ export const useStakingPool = () => {
     const { contracts, chainId } = useNetworkConfig();
 
     const { data: stakedAmount, refetch: refetchStakedAmount } = useReadContract({
-        ...contracts.StakingPool,
+        abi: contracts.StakingPool.abi,
+        address: contracts.StakingPool.address as `0x${string}`,
         functionName: 'getStakedAmount',
         args: [address],
         chainId,
@@ -44,7 +45,8 @@ export const useStakingPool = () => {
 
         const amountInWei = parseEther(amount);
         writeStake({
-            ...contracts.StakingPool,
+            abi: contracts.StakingPool.abi,
+            address: contracts.StakingPool.address as `0x${string}`,
             functionName: 'stake',
             chainId,
             value: amountInWei,
@@ -56,7 +58,8 @@ export const useStakingPool = () => {
 
         const amountInWei = parseEther(amount);
         writeWithdraw({
-            ...contracts.StakingPool,
+            abi: contracts.StakingPool.abi,
+            address: contracts.StakingPool.address as `0x${string}`,
             functionName: 'withdraw',
             args: [amountInWei],
             chainId,

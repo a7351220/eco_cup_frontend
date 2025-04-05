@@ -11,14 +11,16 @@ export const useRewardController = () => {
     const { contracts, chainId } = useNetworkConfig();
 
     const { data: rewardAmount, refetch: refetchRewardAmount } = useReadContract({
-        ...contracts.RewardController,
+        abi: contracts.RewardController.abi,
+        address: contracts.RewardController.address as `0x${string}`,
         functionName: 'calculateReward',
         args: [address],
         chainId,
     });
 
     const { data: dailyAPR } = useReadContract({
-        ...contracts.RewardController,
+        abi: contracts.RewardController.abi,
+        address: contracts.RewardController.address as `0x${string}`,
         functionName: 'dailyAPR',
         chainId,
     });
@@ -41,7 +43,8 @@ export const useRewardController = () => {
         if (!address) return;
 
         writeDistributeReward({
-            ...contracts.RewardController,
+            abi: contracts.RewardController.abi,
+            address: contracts.RewardController.address as `0x${string}`,
             functionName: 'distributeReward',
             args: [address],
             chainId,

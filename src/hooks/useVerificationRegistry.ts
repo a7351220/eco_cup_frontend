@@ -11,21 +11,24 @@ export const useVerificationRegistry = () => {
     const [localVerificationCount, setLocalVerificationCount] = useState<number>(0);
 
     const { data: verificationCount, refetch: refetchVerificationCount } = useReadContract({
-        ...contracts.VerificationRegistry,
+        abi: contracts.VerificationRegistry.abi,
+        address: contracts.VerificationRegistry.address as `0x${string}`,
         functionName: 'getVerificationCount',
         args: [address],
         chainId,
     });
 
     const { data: canClaimReward, refetch: refetchCanClaimReward } = useReadContract({
-        ...contracts.VerificationRegistry,
+        abi: contracts.VerificationRegistry.abi,
+        address: contracts.VerificationRegistry.address as `0x${string}`,
         functionName: 'canClaimReward',
         args: [address],
         chainId,
     });
 
     const { data: userVerifications, refetch: refetchUserVerifications } = useReadContract({
-        ...contracts.VerificationRegistry,
+        abi: contracts.VerificationRegistry.abi,
+        address: contracts.VerificationRegistry.address as `0x${string}`,
         functionName: 'userVerifications',
         args: [address],
         chainId,
@@ -38,13 +41,11 @@ export const useVerificationRegistry = () => {
         }
     }, [userVerifications]);
 
-
     useWatchContractEvent({
-        address: contracts.VerificationRegistry.address,
+        address: contracts.VerificationRegistry.address as `0x${string}`,
         abi: contracts.VerificationRegistry.abi,
         eventName: 'VerificationRecorded',
         onLogs: (logs) => {
-
             const userEvents = logs.filter(log => {
                 try {
                     // @ts-ignore: auto type inference may be wrong, but we know the event structure

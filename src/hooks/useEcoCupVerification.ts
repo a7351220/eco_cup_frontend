@@ -161,8 +161,8 @@ export function useEcoCupVerification() {
             }
             // Call the smart contract to record the verification
             writeContract({
-                address: contracts.VerificationRegistry.address,
                 abi: contracts.VerificationRegistry.abi,
+                address: contracts.VerificationRegistry.address as `0x${string}`,
                 functionName: 'recordVerification',
                 args: [address],
                 chainId,
