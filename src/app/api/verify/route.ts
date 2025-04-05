@@ -1,6 +1,7 @@
 import { ethers } from 'ethers';
 import { contractsConfig } from '@/lib/constants/wagmiContractConfig/contracts';
 import { NextRequest, NextResponse } from 'next/server';
+import { getUserIdentifier } from '@selfxyz/core';
 
 /**
  * API route handler for Self identity verification
@@ -18,13 +19,11 @@ export async function POST(req: NextRequest) {
             );
         }
 
-        // Extract user address from verification result
-        // Note: In a real implementation, you would use the Self SDK here
-        // const userAddress = await getUserIdentifier(publicSignals, "hex");
+        // Extract user address from verification result using Self SDK
         let userAddress = '';
         try {
-            // This is a placeholder; in production use the proper SDK method
-            userAddress = publicSignals[0] || '';
+            userAddress = await getUserIdentifier(publicSignals, "hex");
+            console.log("Extracted address from verification result:", userAddress);
         } catch (error) {
             console.error("Error extracting user address:", error);
             return NextResponse.json(
