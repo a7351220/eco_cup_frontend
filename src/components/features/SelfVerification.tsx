@@ -5,7 +5,6 @@ import { useAccount } from 'wagmi';
 import { useSelfVerification } from '@/hooks';
 import dynamic from 'next/dynamic';
 
-// 使用動態導入 - 客戶端渲染
 const QRCodeComponent = dynamic(
   () => import('@/components/features/QRCodeComponent'),
   { ssr: false }
@@ -20,16 +19,13 @@ const SelfVerification: React.FC<{ onVerificationSuccess?: () => void }> = ({ on
     verifyAdminSelf
   } = useSelfVerification();
 
-  // 偵測管理員身份並自動觸發驗證
   useEffect(() => {
     if (address && hasVerifierRole && !isIdentityVerified) {
       verifyAdminSelf();
     }
   }, [address, hasVerifierRole, isIdentityVerified, verifyAdminSelf]);
 
-  // 處理成功驗證
   const onSuccess = () => {
-    console.log('Identity verification initiated successfully');
     handleVerificationSuccess();
     if (onVerificationSuccess) {
       onVerificationSuccess();
@@ -44,7 +40,6 @@ const SelfVerification: React.FC<{ onVerificationSuccess?: () => void }> = ({ on
     );
   }
 
-  // 如果是管理員，顯示正在處理中的訊息
   if (hasVerifierRole) {
     return (
       <div className="p-4 bg-yellow-100 text-yellow-800 rounded-md">

@@ -18,9 +18,6 @@ export async function POST(req: NextRequest) {
             );
         }
 
-        console.log("Received proof:", proof);
-        console.log("Received public signals:", publicSignals);
-
         // Extract user address from verification result
         // Note: In a real implementation, you would use the Self SDK here
         // const userAddress = await getUserIdentifier(publicSignals, "hex");
@@ -28,7 +25,6 @@ export async function POST(req: NextRequest) {
         try {
             // This is a placeholder; in production use the proper SDK method
             userAddress = publicSignals[0] || '';
-            console.log("User address from verification:", userAddress);
         } catch (error) {
             console.error("Error extracting user address:", error);
             return NextResponse.json(
@@ -79,7 +75,6 @@ export async function POST(req: NextRequest) {
 
             // Wait for transaction confirmation
             const receipt = await tx.wait();
-            console.log("Transaction confirmed:", receipt.hash);
 
             return NextResponse.json({
                 status: 'success',

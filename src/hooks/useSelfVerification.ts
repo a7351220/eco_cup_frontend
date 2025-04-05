@@ -61,7 +61,6 @@ export const useSelfVerification = () => {
 
     // Handle successful verification from Self app
     const handleVerificationSuccess = useCallback(() => {
-        console.log('Identity verification initiated successfully');
         setQrStatus('pending');
 
         // Refetch verification status after a delay to allow for transaction processing

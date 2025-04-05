@@ -158,9 +158,6 @@ export function useEcoCupVerification() {
             if (!address) {
                 throw new Error('Wallet not connected');
             }
-
-            console.log('Recording verification on blockchain');
-
             // Call the smart contract to record the verification
             writeContract({
                 address: contractsConfig.VerificationRegistry.address,
