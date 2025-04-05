@@ -1,7 +1,7 @@
 # CupFi DeFi Verification System PRD
 
 ## 1. Product Overview
-A Web3 application that combines staking mechanisms with eco-friendly behavior verification. Users stake ETH to gain verification eligibility and earn platform tokens by completing reusable cup verifications.
+A Web3 application that combines staking mechanisms with eco-friendly behavior verification. Users stake CELO to gain verification eligibility and earn platform tokens by completing reusable cup verifications.
 
 ## 2. Core Features
 
@@ -12,7 +12,7 @@ A Web3 application that combines staking mechanisms with eco-friendly behavior v
 - 3 daily verifications required to unlock rewards
 
 ### 2.2 Staking Mechanism
-- Minimum stake: 0.0001 ETH
+- Minimum stake: 0.0001 CELO
 - Stake enters official pool to gain verification eligibility
 - Withdrawals available anytime
 - Higher stake amounts earn higher reward multipliers
@@ -20,7 +20,7 @@ A Web3 application that combines staking mechanisms with eco-friendly behavior v
 ### 2.3 Official Reward Pool
 - Officially maintained large staking pool
 - Fixed APR platform token rewards
-- Users automatically join official pool upon staking ETH
+- Users automatically join official pool upon staking CELO
 - Daily rewards unlocked after completing 3 cup verifications
 
 ### 2.4 Reward System
@@ -34,17 +34,17 @@ A Web3 application that combines staking mechanisms with eco-friendly behavior v
 - Simple and effective incentive model
 
 ## 4. User Journey
-1. User stakes ETH to enter official pool and gain verification eligibility
+1. User stakes CELO to enter official pool and gain verification eligibility
 2. User takes photos during daily reusable cup usage (3 times required)
 3. System automatically verifies photos and unlocks daily rewards
 4. User can claim platform token rewards
-5. User can choose to continue staking or withdraw ETH
+5. User can choose to continue staking or withdraw CELO
 
 ## 5. Real User Flow Simulation
 
-### 5.1 User Staking ETH
+### 5.1 User Staking CELO
 - User connects wallet to platform
-- User stakes 0.01 ETH to StakingPool contract
+- User stakes 0.01 CELO to StakingPool contract
 - System records user's staked amount
 - User's staking status activated, allowing participation in eco verifications
 
@@ -61,7 +61,7 @@ A Web3 application that combines staking mechanisms with eco-friendly behavior v
 
 ### 5.4 System Reward Calculation
 - Rewards calculated based on user's stake amount and daily APR (5%)
-- Example: 0.01 ETH stake, 5% daily rate = 0.0005 ETH equivalent in tokens daily
+- Example: 0.01 CELO stake, 5% daily rate = 0.0005 CELO equivalent in tokens daily
 
 ### 5.5 User Reward Claim
 - User clicks "Claim Reward" button
@@ -74,18 +74,18 @@ A Web3 application that combines staking mechanisms with eco-friendly behavior v
 - Tokens may have additional utilities like physical item redemption or ecosystem benefits
 
 ### 5.7 User Withdrawal (Optional)
-- User can withdraw partial or full staked ETH if desired
+- User can withdraw partial or full staked CELO if desired
 - After withdrawal, user's reward potential decreases accordingly
 
 ### 5.8 Multi-user Scenarios
-Different users staking different ETH amounts receive proportional rewards:
-- User A stakes 0.01 ETH, earns ~0.0005 ETH equivalent in tokens daily after verification
-- User B stakes 0.02 ETH, earns ~0.001 ETH equivalent in tokens daily after verification
+Different users staking different CELO amounts receive proportional rewards:
+- User A stakes 0.01 CELO, earns ~0.0005 CELO equivalent in tokens daily after verification
+- User B stakes 0.02 CELO, earns ~0.001 CELO equivalent in tokens daily after verification
 
 ## 6. MVP Scope
 
 ### Essential Features
-- ETH staking and withdrawal
+- CELO staking and withdrawal
 - Official reward pool mechanism
 - Reusable cup photo verification (3 times daily)
 - Platform token reward distribution
@@ -109,7 +109,7 @@ Different users staking different ETH amounts receive proportional rewards:
 
 ## 8. Success Metrics
 - Daily active verification count
-- Total ETH staked
+- Total CELO staked
 - Platform token circulation
 - User daily verification completion rate
 - User retention rate

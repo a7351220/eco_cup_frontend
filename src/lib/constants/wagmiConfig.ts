@@ -28,7 +28,7 @@ export const baseSepolia: Chain = {
   nativeCurrency: {
     decimals: 18,
     name: 'Sepolia Ether',
-    symbol: 'ETH',
+    symbol: 'CELO',
   },
   rpcUrls: {
     default: {
@@ -61,8 +61,8 @@ const projectId = process.env.NEXT_PUBLIC_WALLETCONNECT_ID || '';
 const RPC_URLS = {
   MAINNET: [
     mainnet.rpcUrls.default.http[0], // Default RPC
-    'https://rpc.ankr.com/eth', // Ankr
-    'https://eth.llamarpc.com', // Llama
+    'https://rpc.ankr.com/CELO', // Ankr
+    'https://CELO.llamarpc.com', // Llama
   ],
   ARBITRUM: [
     arbitrum.rpcUrls.default.http[0], // Default RPC

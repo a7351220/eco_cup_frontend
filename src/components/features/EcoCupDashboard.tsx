@@ -12,7 +12,7 @@ export default function EcoCupDashboard() {
         <div>
           <h1 className="text-3xl font-bold">CupFi Verification System</h1>
           <p className="text-gray-500 dark:text-gray-400 mt-1">
-            Stake ETH, use eco-friendly cups daily, earn token rewards
+            Stake CELO, use eco-friendly cups daily, earn token rewards
           </p>
         </div>
         <div className="mt-4 sm:mt-0">

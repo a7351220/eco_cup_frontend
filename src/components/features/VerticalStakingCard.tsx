@@ -64,7 +64,7 @@ export default function VerticalStakingCard() {
         />
         <h1 className="welcome-title">CupFi</h1>
         <p className="welcome-description">
-          Stake ETH, use eco-friendly cups, earn rewards, contribute to environmental protection together
+          Stake CELO, use eco-friendly cups, earn rewards, contribute to environmental protection together
         </p>
         <div className="welcome-connect">
           <CustomConnectButton />
@@ -77,7 +77,7 @@ export default function VerticalStakingCard() {
     <div className="staking-card">
       <div className="staking-header">
         <div className="flex items-center text-xl font-semibold text-green-800">
-          <span className="staking-icon">💰</span> ETH Staking
+          <span className="staking-icon">💰</span> CELO Staking
         </div>
         {/* Leaf button after successful connection */}
         <div className="card-wallet-button">
@@ -95,7 +95,7 @@ export default function VerticalStakingCard() {
           <div className="stat-container">
             <div>
               <div className="stat-label">Staked Amount</div>
-              <div className="stat-value">{stakedAmount} ETH</div>
+              <div className="stat-value">{stakedAmount} CELO</div>
             </div>
             <div>
               <div className="stat-label">Staking Status</div>
@@ -118,10 +118,10 @@ export default function VerticalStakingCard() {
                   step="0.0001"
                   style={{ appearance: 'textfield' }}
                 />
-                <span className="pr-3 font-medium text-gray-600">ETH</span>
+                <span className="pr-3 font-medium text-gray-600">CELO</span>
               </div>
               {!isValidStakeAmount && (
-                <p className="text-red-500 text-xs mt-1">Minimum stake amount is 0.0001 ETH</p>
+                <p className="text-red-500 text-xs mt-1">Minimum stake amount is 0.0001 CELO</p>
               )}
             </div>
             
@@ -130,7 +130,7 @@ export default function VerticalStakingCard() {
               onClick={handleStake}
               disabled={!isValidStakeAmount || isStakePending || isStakeLoading}
             >
-              {isStakePending || isStakeLoading ? 'Processing...' : 'Stake ETH'}
+              {isStakePending || isStakeLoading ? 'Processing...' : 'Stake CELO'}
             </button>
             
             {isStakeSuccess && (
@@ -152,7 +152,7 @@ export default function VerticalStakingCard() {
                   step="0.0001"
                   style={{ appearance: 'textfield' }}
                 />
-                <span className="pr-3 font-medium text-gray-600">ETH</span>
+                <span className="pr-3 font-medium text-gray-600">CELO</span>
               </div>
               <button
                 className="text-green-600 text-xs mt-1"
@@ -170,7 +170,7 @@ export default function VerticalStakingCard() {
               onClick={handleWithdraw}
               disabled={!isValidWithdrawAmount || isWithdrawPending || isWithdrawLoading}
             >
-              {isWithdrawPending || isWithdrawLoading ? 'Processing...' : 'Withdraw ETH'}
+              {isWithdrawPending || isWithdrawLoading ? 'Processing...' : 'Withdraw CELO'}
             </button>
             
             {isWithdrawSuccess && (
@@ -180,7 +180,7 @@ export default function VerticalStakingCard() {
 
           <div className="mt-6 text-sm text-gray-600 bg-green-50 p-4 rounded-lg">
             <p className="mb-1">• Complete identity verification first using Self app</p>
-            <p className="mb-1">• Minimum stake amount is 0.0001 ETH</p>
+            <p className="mb-1">• Minimum stake amount is 0.0001 CELO</p>
             <p className="mb-1">• After staking, you can participate in eco-cup verification activities</p>
             <p>• Complete 3 verifications daily to earn rewards</p>
           </div>

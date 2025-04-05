@@ -10,7 +10,7 @@
 ### 1.1 Smart Contract Architecture
 This project implements the following smart contracts:
 
-1. **StakingPool.sol** - Manages ETH staking and withdrawal functionality
+1. **StakingPool.sol** - Manages CELO staking and withdrawal functionality
 2. **EcoCupToken.sol** - Implements ERC-20 standard platform token
 3. **RewardController.sol** - Manages reward calculation and distribution
 4. **VerificationRegistry.sol** - Records user verification status and history
@@ -32,9 +32,9 @@ StakingPool <-----> RewardController <-----> EcoCupToken
 ## 2. Implemented Smart Contracts
 
 ### 2.1 StakingPool.sol
-Staking pool contract allows users to stake ETH and supports withdrawals. Key features:
-- Minimum stake amount is 0.0001 ETH
-- Users can withdraw staked ETH at any time
+Staking pool contract allows users to stake CELO and supports withdrawals. Key features:
+- Minimum stake amount is 0.0001 CELO
+- Users can withdraw staked CELO at any time
 - Tracks each user's staked amount
 - Interfaces with the reward controller
 
@@ -60,8 +60,8 @@ Verification registry contract records user verification status. Key features:
 ## 3. Implementation Details
 
 ### 3.1 Staking Functionality
-- Users must stake at least 0.0001 ETH to be eligible for verification
-- Users can withdraw staked ETH at any time
+- Users must stake at least 0.0001 CELO to be eligible for verification
+- Users can withdraw staked CELO at any time
 - Higher stake amounts result in higher rewards
 
 ### 3.2 Verification Mechanism
@@ -71,7 +71,7 @@ Verification registry contract records user verification status. Key features:
 - Daily verification count resets each new day
 
 ### 3.3 Reward Calculation
-- Rewards based on user's staked ETH amount and fixed APR
+- Rewards based on user's staked CELO amount and fixed APR
 - Default APR is 5% (represented as 500 with base 10000)
 - Rewards can only be claimed after completing 3 daily verifications
 

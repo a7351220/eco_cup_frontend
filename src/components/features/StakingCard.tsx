@@ -96,7 +96,7 @@ export default function StakingCard() {
   return (
     <div className="bg-white dark:bg-slate-800 rounded-lg shadow-lg p-6 mb-6">
       <h2 className="text-2xl font-bold mb-4">
-        ETH Staking
+        CELO Staking
         {isRefreshing && (
           <span className="ml-2 inline-block text-sm text-blue-500 animate-pulse">
             Updating...
@@ -112,7 +112,7 @@ export default function StakingCard() {
         <>
           <div className="mb-4">
             <p className="text-sm text-gray-500 dark:text-gray-400">Staked Amount</p>
-            <p className="text-2xl font-bold">{stakedAmount} ETH</p>
+            <p className="text-2xl font-bold">{stakedAmount} CELO</p>
             <button 
               onClick={refreshData} 
               className="text-xs text-blue-500 mt-1 hover:underline"
@@ -125,7 +125,7 @@ export default function StakingCard() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* Staking Form */}
             <div className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
-              <h3 className="font-medium mb-2">Stake ETH</h3>
+              <h3 className="font-medium mb-2">Stake CELO</h3>
               <div className="mb-4">
                 <div className="flex items-center">
                   <input
@@ -136,10 +136,10 @@ export default function StakingCard() {
                     min="0.0001"
                     step="0.0001"
                   />
-                  <span className="ml-2">ETH</span>
+                  <span className="ml-2">CELO</span>
                 </div>
                 {!isValidStakeAmount && (
-                  <p className="text-red-500 text-xs mt-1">Minimum stake amount is 0.0001 ETH</p>
+                  <p className="text-red-500 text-xs mt-1">Minimum stake amount is 0.0001 CELO</p>
                 )}
               </div>
               <button
@@ -160,7 +160,7 @@ export default function StakingCard() {
 
             {/* Withdrawal Form */}
             <div className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
-              <h3 className="font-medium mb-2">Withdraw ETH</h3>
+              <h3 className="font-medium mb-2">Withdraw CELO</h3>
               <div className="mb-4">
                 <div className="flex items-center">
                   <input
@@ -172,7 +172,7 @@ export default function StakingCard() {
                     max={stakedAmount}
                     step="0.0001"
                   />
-                  <span className="ml-2">ETH</span>
+                  <span className="ml-2">CELO</span>
                 </div>
                 <button
                   className="text-blue-500 text-xs mt-1"

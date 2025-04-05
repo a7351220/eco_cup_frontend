@@ -29,7 +29,7 @@ export default function VerticalVerificationCard() {
   // Calculate verification progress percentage
   const verificationProgressPercent = (verificationCount / 3) * 100;
   
-  // Check if enough ETH is staked
+  // Check if enough CELO is staked
   const hasStaked = parseFloat(stakedAmount) >= 0.0001;
 
   // Start camera
@@ -112,7 +112,7 @@ export default function VerticalVerificationCard() {
         </div>
       ) : !hasStaked ? (
         <div className="text-center py-4">
-          <p className="mb-2">Please stake at least 0.0001 ETH to gain verification eligibility</p>
+          <p className="mb-2">Please stake at least 0.0001 CELO to gain verification eligibility</p>
         </div>
       ) : (
         <>
