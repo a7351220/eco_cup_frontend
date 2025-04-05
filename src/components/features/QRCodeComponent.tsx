@@ -34,12 +34,19 @@ const QRCodeComponent: React.FC<QRCodeComponentProps> = ({ address, onSuccess })
       devMode: process.env.NODE_ENV !== 'production',
     }).build();
 
+    const qrCodeStyle = {
+      transform: 'scale(0.7)',
+      transformOrigin: 'center', 
+    };
+
     return (
-      <SelfQRcodeWrapper
-        selfApp={selfApp}
-        type='websocket'
-        onSuccess={onSuccess}
-      />
+      <div style={qrCodeStyle}>
+        <SelfQRcodeWrapper
+          selfApp={selfApp}
+          type='websocket'
+          onSuccess={onSuccess}
+        />
+      </div>
     );
   } catch (error) {
     console.error('Failed to create Self app:', error);
