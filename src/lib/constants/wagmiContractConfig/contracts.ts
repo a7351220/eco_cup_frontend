@@ -30,5 +30,34 @@ export const contractsConfig = {
     },
 } as const;
 
+/**
+ * Celo Mainnet contract addresses and ABI configurations
+ */
+export const mainnetContractsConfig = {
+    StakingPool: {
+        address: '0x312aB286ac8108eFE5bf9C6355aA149a364E27bB',
+        abi: StakingPoolABI,
+    },
+    VerificationRegistry: {
+        address: '0x729fEd5Fa9703923206A7Ca732Bb84BcB00CadE3',
+        abi: VerificationRegistryABI,
+    },
+    RewardController: {
+        address: '0x645261A2eeE8145CAe16B24ec4163c57992E4b80',
+        abi: RewardControllerABI,
+    },
+    EcoCupToken: {
+        address: '0xcf9E16Da624FD6A2F7954ff041C7F250473FB6B3',
+        abi: EcoCupTokenABI,
+    },
+    SelfVerification: {
+        address: '0x79eB256B30902588F79C217bF82C099e22A89798',
+        abi: SelfVerificationABI,
+    },
+} as const;
+
 // Celo Alfajores Testnet ChainId
-export const CELO_ALFAJORES_CHAIN_ID = 44787; 
+export const CELO_ALFAJORES_CHAIN_ID = 44787;
+
+// Celo Mainnet ChainId
+export const CELO_MAINNET_CHAIN_ID = 42220; 

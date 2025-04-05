@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useAccount, useWriteContract, useWaitForTransactionReceipt } from 'wagmi';
-import { contractsConfig, CELO_ALFAJORES_CHAIN_ID } from '@/lib/constants/wagmiContractConfig/contracts';
 import { useVerificationRegistry } from './useVerificationRegistry';
+import { useNetworkConfig } from '@/lib/utils/networkUtils';
 
 type VerificationStep = 'idle' | 'capturing' | 'processing' | 'success' | 'failed';
 type VerificationFeedback = {
@@ -12,6 +12,7 @@ type VerificationFeedback = {
 
 export function useEcoCupVerification() {
     const { address } = useAccount();
+    const { contracts, chainId } = useNetworkConfig();
     const [step, setStep] = useState<VerificationStep>('idle');
     const [error, setError] = useState<string | null>(null);
     const [imageSrc, setImageSrc] = useState<string | null>(null);
@@ -160,11 +161,11 @@ export function useEcoCupVerification() {
             }
             // Call the smart contract to record the verification
             writeContract({
-                address: contractsConfig.VerificationRegistry.address,
-                abi: contractsConfig.VerificationRegistry.abi,
+                address: contracts.VerificationRegistry.address,
+                abi: contracts.VerificationRegistry.abi,
                 functionName: 'recordVerification',
                 args: [address],
-                chainId: CELO_ALFAJORES_CHAIN_ID,
+                chainId,
             });
 
         } catch (err) {

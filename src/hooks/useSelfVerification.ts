@@ -1,6 +1,6 @@
 import { useAccount, useReadContract, useWriteContract, useWaitForTransactionReceipt } from 'wagmi';
-import { contractsConfig, CELO_ALFAJORES_CHAIN_ID } from '@/lib/constants/wagmiContractConfig/contracts';
 import { useState, useCallback } from 'react';
+import { useNetworkConfig } from '@/lib/utils/networkUtils';
 
 // VERIFIER_ROLE constant as keccak256 hash
 export const VERIFIER_ROLE = "0x3a9a1512256ee5e7f6e09557a22aaf332f9a6bd11da45478ec08c5418f96a1b4";
@@ -11,22 +11,23 @@ export const VERIFIER_ROLE = "0x3a9a1512256ee5e7f6e09557a22aaf332f9a6bd11da45478
  */
 export const useSelfVerification = () => {
     const { address } = useAccount();
+    const { contracts, chainId } = useNetworkConfig();
     const [qrStatus, setQrStatus] = useState<'idle' | 'pending' | 'success' | 'error'>('idle');
 
     // Check if user is already verified
     const { data: isIdentityVerified, refetch: refetchVerificationStatus } = useReadContract({
-        ...contractsConfig.VerificationRegistry,
+        ...contracts.VerificationRegistry,
         functionName: 'isIdentityVerified',
         args: [address],
-        chainId: CELO_ALFAJORES_CHAIN_ID,
+        chainId,
     });
 
     // Check if user has VERIFIER_ROLE (admin)
     const { data: hasVerifierRole } = useReadContract({
-        ...contractsConfig.SelfVerification,
+        ...contracts.SelfVerification,
         functionName: 'hasRole',
         args: [VERIFIER_ROLE, address],
-        chainId: CELO_ALFAJORES_CHAIN_ID,
+        chainId,
     });
 
     // For admin users with VERIFIER_ROLE
@@ -46,10 +47,10 @@ export const useSelfVerification = () => {
         if (!address) return;
 
         writeMockVerification({
-            ...contractsConfig.SelfVerification,
+            ...contracts.SelfVerification,
             functionName: 'mockIdentityVerification',
             args: [targetAddress],
-            chainId: CELO_ALFAJORES_CHAIN_ID,
+            chainId,
         });
 
         setTimeout(() => {
@@ -57,7 +58,7 @@ export const useSelfVerification = () => {
                 refetchVerificationStatus();
             }
         }, 3000);
-    }, [address, writeMockVerification, refetchVerificationStatus]);
+    }, [address, writeMockVerification, refetchVerificationStatus, contracts.SelfVerification, chainId]);
 
     // Handle successful verification from Self app
     const handleVerificationSuccess = useCallback(() => {

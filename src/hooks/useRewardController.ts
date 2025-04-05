@@ -1,25 +1,26 @@
 import { useCallback } from 'react';
 import { formatEther } from 'ethers';
 import { useAccount, useReadContract, useWriteContract, useWaitForTransactionReceipt } from 'wagmi';
-import { contractsConfig, CELO_ALFAJORES_CHAIN_ID } from '@/lib/constants/wagmiContractConfig/contracts';
+import { useNetworkConfig } from '@/lib/utils/networkUtils';
 
 /**
  * This hook provides the functionality to interact with the RewardController contract
  */
 export const useRewardController = () => {
     const { address } = useAccount();
+    const { contracts, chainId } = useNetworkConfig();
 
     const { data: rewardAmount, refetch: refetchRewardAmount } = useReadContract({
-        ...contractsConfig.RewardController,
+        ...contracts.RewardController,
         functionName: 'calculateReward',
         args: [address],
-        chainId: CELO_ALFAJORES_CHAIN_ID,
+        chainId,
     });
 
     const { data: dailyAPR } = useReadContract({
-        ...contractsConfig.RewardController,
+        ...contracts.RewardController,
         functionName: 'dailyAPR',
-        chainId: CELO_ALFAJORES_CHAIN_ID,
+        chainId,
     });
 
     const {
@@ -40,12 +41,12 @@ export const useRewardController = () => {
         if (!address) return;
 
         writeDistributeReward({
-            ...contractsConfig.RewardController,
+            ...contracts.RewardController,
             functionName: 'distributeReward',
             args: [address],
-            chainId: CELO_ALFAJORES_CHAIN_ID,
+            chainId,
         });
-    }, [address, writeDistributeReward]);
+    }, [address, writeDistributeReward, contracts.RewardController, chainId]);
 
     const formattedRewardAmount = rewardAmount && typeof rewardAmount === 'bigint'
         ? formatEther(rewardAmount)

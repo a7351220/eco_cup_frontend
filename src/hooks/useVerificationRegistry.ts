@@ -1,33 +1,34 @@
 import { useAccount, useReadContract, useWatchContractEvent } from 'wagmi';
 import { useEffect, useState } from 'react';
-import { contractsConfig, CELO_ALFAJORES_CHAIN_ID } from '@/lib/constants/wagmiContractConfig/contracts';
+import { useNetworkConfig } from '@/lib/utils/networkUtils';
 
 /**
  * This hook provides the functionality to interact with the VerificationRegistry contract
  */
 export const useVerificationRegistry = () => {
     const { address } = useAccount();
+    const { contracts, chainId } = useNetworkConfig();
     const [localVerificationCount, setLocalVerificationCount] = useState<number>(0);
 
     const { data: verificationCount, refetch: refetchVerificationCount } = useReadContract({
-        ...contractsConfig.VerificationRegistry,
+        ...contracts.VerificationRegistry,
         functionName: 'getVerificationCount',
         args: [address],
-        chainId: CELO_ALFAJORES_CHAIN_ID,
+        chainId,
     });
 
     const { data: canClaimReward, refetch: refetchCanClaimReward } = useReadContract({
-        ...contractsConfig.VerificationRegistry,
+        ...contracts.VerificationRegistry,
         functionName: 'canClaimReward',
         args: [address],
-        chainId: CELO_ALFAJORES_CHAIN_ID,
+        chainId,
     });
 
     const { data: userVerifications, refetch: refetchUserVerifications } = useReadContract({
-        ...contractsConfig.VerificationRegistry,
+        ...contracts.VerificationRegistry,
         functionName: 'userVerifications',
         args: [address],
-        chainId: CELO_ALFAJORES_CHAIN_ID,
+        chainId,
     });
 
     useEffect(() => {
@@ -39,8 +40,8 @@ export const useVerificationRegistry = () => {
 
 
     useWatchContractEvent({
-        address: contractsConfig.VerificationRegistry.address,
-        abi: contractsConfig.VerificationRegistry.abi,
+        address: contracts.VerificationRegistry.address,
+        abi: contracts.VerificationRegistry.abi,
         eventName: 'VerificationRecorded',
         onLogs: (logs) => {
 
@@ -73,7 +74,7 @@ export const useVerificationRegistry = () => {
                 }
             }
         },
-        chainId: CELO_ALFAJORES_CHAIN_ID,
+        chainId,
     });
 
     useEffect(() => {

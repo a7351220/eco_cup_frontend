@@ -1,17 +1,19 @@
 import { formatEther } from 'ethers';
 import { useAccount, useReadContract } from 'wagmi';
-import { contractsConfig, CELO_ALFAJORES_CHAIN_ID } from '@/lib/constants/wagmiContractConfig/contracts';
+import { useNetworkConfig } from '@/lib/utils/networkUtils';
 
 /**
  * This hook provides the balance of the EcoCupToken contract
  */
 export const useEcoCupToken = () => {
     const { address } = useAccount();
+    const { contracts, chainId } = useNetworkConfig();
+
     const { data: tokenBalance, refetch: refetchBalance } = useReadContract({
-        ...contractsConfig.EcoCupToken,
+        ...contracts.EcoCupToken,
         functionName: 'balanceOf',
         args: [address],
-        chainId: CELO_ALFAJORES_CHAIN_ID,
+        chainId,
     });
 
     const formattedBalance = tokenBalance && typeof tokenBalance === 'bigint'

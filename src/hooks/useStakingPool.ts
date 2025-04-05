@@ -1,18 +1,20 @@
 import { useCallback } from 'react';
 import { parseEther, formatEther } from 'ethers';
 import { useReadContract, useWriteContract, useWaitForTransactionReceipt, useAccount } from 'wagmi';
-import { contractsConfig, CELO_ALFAJORES_CHAIN_ID } from '@/lib/constants/wagmiContractConfig/contracts';
+import { useNetworkConfig } from '@/lib/utils/networkUtils';
 
 /**
  * This hook provides the functionality to interact with the StakingPool contract
  */
 export const useStakingPool = () => {
     const { address } = useAccount();
+    const { contracts, chainId } = useNetworkConfig();
+
     const { data: stakedAmount, refetch: refetchStakedAmount } = useReadContract({
-        ...contractsConfig.StakingPool,
+        ...contracts.StakingPool,
         functionName: 'getStakedAmount',
         args: [address],
-        chainId: CELO_ALFAJORES_CHAIN_ID,
+        chainId,
     });
 
     const {
@@ -42,24 +44,24 @@ export const useStakingPool = () => {
 
         const amountInWei = parseEther(amount);
         writeStake({
-            ...contractsConfig.StakingPool,
+            ...contracts.StakingPool,
             functionName: 'stake',
-            chainId: CELO_ALFAJORES_CHAIN_ID,
+            chainId,
             value: amountInWei,
         });
-    }, [address, writeStake]);
+    }, [address, writeStake, contracts.StakingPool, chainId]);
 
     const withdraw = useCallback((amount: string) => {
         if (!address) return;
 
         const amountInWei = parseEther(amount);
         writeWithdraw({
-            ...contractsConfig.StakingPool,
+            ...contracts.StakingPool,
             functionName: 'withdraw',
             args: [amountInWei],
-            chainId: CELO_ALFAJORES_CHAIN_ID,
+            chainId,
         });
-    }, [address, writeWithdraw]);
+    }, [address, writeWithdraw, contracts.StakingPool, chainId]);
 
     const formattedStakedAmount = stakedAmount && typeof stakedAmount === 'bigint'
         ? formatEther(stakedAmount)
