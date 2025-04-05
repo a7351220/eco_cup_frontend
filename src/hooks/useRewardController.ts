@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { formatEther } from 'ethers';
 import { useAccount, useReadContract, useWriteContract, useWaitForTransactionReceipt } from 'wagmi';
-import { contractsConfig, BASE_SEPOLIA_CHAIN_ID } from '@/lib/constants/wagmiContractConfig/contracts';
+import { contractsConfig, CELO_ALFAJORES_CHAIN_ID } from '@/lib/constants/wagmiContractConfig/contracts';
 
 /**
  * This hook provides the functionality to interact with the RewardController contract
@@ -13,13 +13,13 @@ export const useRewardController = () => {
         ...contractsConfig.RewardController,
         functionName: 'calculateReward',
         args: [address],
-        chainId: BASE_SEPOLIA_CHAIN_ID,
+        chainId: CELO_ALFAJORES_CHAIN_ID,
     });
 
     const { data: dailyAPR } = useReadContract({
         ...contractsConfig.RewardController,
         functionName: 'dailyAPR',
-        chainId: BASE_SEPOLIA_CHAIN_ID,
+        chainId: CELO_ALFAJORES_CHAIN_ID,
     });
 
     const {
@@ -43,7 +43,7 @@ export const useRewardController = () => {
             ...contractsConfig.RewardController,
             functionName: 'distributeReward',
             args: [address],
-            chainId: BASE_SEPOLIA_CHAIN_ID,
+            chainId: CELO_ALFAJORES_CHAIN_ID,
         });
     }, [address, writeDistributeReward]);
 

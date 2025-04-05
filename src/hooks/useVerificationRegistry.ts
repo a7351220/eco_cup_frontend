@@ -1,6 +1,6 @@
 import { useAccount, useReadContract, useWatchContractEvent } from 'wagmi';
 import { useEffect, useState } from 'react';
-import { contractsConfig, BASE_SEPOLIA_CHAIN_ID } from '@/lib/constants/wagmiContractConfig/contracts';
+import { contractsConfig, CELO_ALFAJORES_CHAIN_ID } from '@/lib/constants/wagmiContractConfig/contracts';
 
 /**
  * This hook provides the functionality to interact with the VerificationRegistry contract
@@ -13,21 +13,21 @@ export const useVerificationRegistry = () => {
         ...contractsConfig.VerificationRegistry,
         functionName: 'getVerificationCount',
         args: [address],
-        chainId: BASE_SEPOLIA_CHAIN_ID,
+        chainId: CELO_ALFAJORES_CHAIN_ID,
     });
 
     const { data: canClaimReward, refetch: refetchCanClaimReward } = useReadContract({
         ...contractsConfig.VerificationRegistry,
         functionName: 'canClaimReward',
         args: [address],
-        chainId: BASE_SEPOLIA_CHAIN_ID,
+        chainId: CELO_ALFAJORES_CHAIN_ID,
     });
 
     const { data: userVerifications, refetch: refetchUserVerifications } = useReadContract({
         ...contractsConfig.VerificationRegistry,
         functionName: 'userVerifications',
         args: [address],
-        chainId: BASE_SEPOLIA_CHAIN_ID,
+        chainId: CELO_ALFAJORES_CHAIN_ID,
     });
 
     useEffect(() => {
@@ -91,7 +91,7 @@ export const useVerificationRegistry = () => {
                 }
             }
         },
-        chainId: BASE_SEPOLIA_CHAIN_ID,
+        chainId: CELO_ALFAJORES_CHAIN_ID,
     });
 
     useEffect(() => {

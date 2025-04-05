@@ -2,28 +2,33 @@ import StakingPoolABI from '../../../../abi/StakingPool.abi.json';
 import VerificationRegistryABI from '../../../../abi/VerificationRegistry.abi.json';
 import RewardControllerABI from '../../../../abi/RewardController.abi.json';
 import EcoCupTokenABI from '../../../../abi/EcoCupToken.abi.json';
+import SelfVerificationABI from '../../../../abi/SelfVerification.abi.json';
 
 /**
- * Base Sepolia testnet contract addresses and ABI configurations
+ * Celo Alfajores Testnet contract addresses and ABI configurations
  */
 export const contractsConfig = {
     StakingPool: {
-        address: '0x435b529860C12Dd35A3255BDbf222450E485aE35',
+        address: '0x6075431B8eB46fc86c100b44eD669766363e76E6',
         abi: StakingPoolABI,
     },
     VerificationRegistry: {
-        address: '0x6d8030ADb227128a24EB5a189743B670295172e7',
+        address: '0xF7C7a89e994a96C227E5911326aCdd5324261Fa3',
         abi: VerificationRegistryABI,
     },
     RewardController: {
-        address: '0x5F0e11b566EC40feCb3Cbab69471fc6E898fF78B',
+        address: '0x3eA8E0860008fE95E22F2fb68728f40918Eed89E',
         abi: RewardControllerABI,
     },
     EcoCupToken: {
-        address: '0xAc45De6353970462389974f1b4Cd1712D51c1983',
+        address: '0x098C568b8EFd867E089D130504d6CE9218519Dc2',
         abi: EcoCupTokenABI,
+    },
+    SelfVerification: {
+        address: '0x73a166998f24878c7d1Dd55230A9281AAfEb43C8',
+        abi: SelfVerificationABI,
     },
 } as const;
 
-// Base Sepolia testnet ChainId
-export const BASE_SEPOLIA_CHAIN_ID = 84532; 
+// Celo Alfajores Testnet ChainId
+export const CELO_ALFAJORES_CHAIN_ID = 44787; 

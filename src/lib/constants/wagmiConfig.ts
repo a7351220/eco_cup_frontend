@@ -1,6 +1,6 @@
 import '@rainbow-me/rainbowkit/styles.css';
 import { http, fallback } from 'wagmi';
-import { arbitrum, base, mainnet, sepolia, type Chain } from 'wagmi/chains';
+import { arbitrum, base, celoAlfajores, mainnet, sepolia, type Chain } from 'wagmi/chains';
 import { getDefaultConfig, WalletList } from '@rainbow-me/rainbowkit';
 import {
   coinbaseWallet,
@@ -77,6 +77,9 @@ const RPC_URLS = {
   BASE_SEPOLIA: [
     'https://sepolia.base.org', // Official Base Sepolia RPC
   ],
+  CELO_ALFAJORES: [
+    'https://alfajores-forno.celo-testnet.org', // Official Celo Alfajores RPC
+  ],
 } as const;
 
 /**
@@ -88,6 +91,7 @@ const transports = {
   [arbitrum.id]: fallback(RPC_URLS.ARBITRUM.map((url) => http(url))),
   [base.id]: fallback(RPC_URLS.BASE.map((url) => http(url))),
   [baseSepolia.id]: fallback(RPC_URLS.BASE_SEPOLIA.map((url) => http(url))),
+  [celoAlfajores.id]: fallback(RPC_URLS.CELO_ALFAJORES.map((url) => http(url))),
 };
 
 //const { wallets } = getDefaultWallets();
@@ -116,6 +120,7 @@ export const wagmiConfig = getDefaultConfig({
   projectId: projectId,
   wallets: wallets,
   chains: [
+    celoAlfajores, // Celo Alfajores testnet (primary)
     baseSepolia, // Base Sepolia testnet
     mainnet,
     base,

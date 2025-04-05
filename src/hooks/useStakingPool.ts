@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { parseEther, formatEther } from 'ethers';
 import { useReadContract, useWriteContract, useWaitForTransactionReceipt, useAccount } from 'wagmi';
-import { contractsConfig, BASE_SEPOLIA_CHAIN_ID } from '@/lib/constants/wagmiContractConfig/contracts';
+import { contractsConfig, CELO_ALFAJORES_CHAIN_ID } from '@/lib/constants/wagmiContractConfig/contracts';
 
 /**
  * This hook provides the functionality to interact with the StakingPool contract
@@ -12,7 +12,7 @@ export const useStakingPool = () => {
         ...contractsConfig.StakingPool,
         functionName: 'getStakedAmount',
         args: [address],
-        chainId: BASE_SEPOLIA_CHAIN_ID,
+        chainId: CELO_ALFAJORES_CHAIN_ID,
     });
 
     const {
@@ -44,7 +44,7 @@ export const useStakingPool = () => {
         writeStake({
             ...contractsConfig.StakingPool,
             functionName: 'stake',
-            chainId: BASE_SEPOLIA_CHAIN_ID,
+            chainId: CELO_ALFAJORES_CHAIN_ID,
             value: amountInWei,
         });
     }, [address, writeStake]);
@@ -57,7 +57,7 @@ export const useStakingPool = () => {
             ...contractsConfig.StakingPool,
             functionName: 'withdraw',
             args: [amountInWei],
-            chainId: BASE_SEPOLIA_CHAIN_ID,
+            chainId: CELO_ALFAJORES_CHAIN_ID,
         });
     }, [address, writeWithdraw]);
 

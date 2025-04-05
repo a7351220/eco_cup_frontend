@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useAccount, useWriteContract, useWaitForTransactionReceipt } from 'wagmi';
-import { contractsConfig, BASE_SEPOLIA_CHAIN_ID } from '@/lib/constants/wagmiContractConfig/contracts';
+import { contractsConfig, CELO_ALFAJORES_CHAIN_ID } from '@/lib/constants/wagmiContractConfig/contracts';
 import { useVerificationRegistry } from './useVerificationRegistry';
 
 type VerificationStep = 'idle' | 'capturing' | 'processing' | 'success' | 'failed';
@@ -167,7 +167,7 @@ export function useEcoCupVerification() {
                 abi: contractsConfig.VerificationRegistry.abi,
                 functionName: 'recordVerification',
                 args: [address],
-                chainId: BASE_SEPOLIA_CHAIN_ID,
+                chainId: CELO_ALFAJORES_CHAIN_ID,
             });
 
         } catch (err) {
