@@ -16,7 +16,8 @@ export const useSelfVerification = () => {
 
     // Check if user is already verified
     const { data: isIdentityVerified, refetch: refetchVerificationStatus } = useReadContract({
-        ...contracts.VerificationRegistry,
+        abi: contracts.VerificationRegistry.abi,
+        address: contracts.VerificationRegistry.address as `0x${string}`,
         functionName: 'isIdentityVerified',
         args: [address],
         chainId,
@@ -24,7 +25,8 @@ export const useSelfVerification = () => {
 
     // Check if user has VERIFIER_ROLE (admin)
     const { data: hasVerifierRole } = useReadContract({
-        ...contracts.SelfVerification,
+        abi: contracts.SelfVerification.abi,
+        address: contracts.SelfVerification.address as `0x${string}`,
         functionName: 'hasRole',
         args: [VERIFIER_ROLE, address],
         chainId,
@@ -47,7 +49,8 @@ export const useSelfVerification = () => {
         if (!address) return;
 
         writeMockVerification({
-            ...contracts.SelfVerification,
+            abi: contracts.SelfVerification.abi,
+            address: contracts.SelfVerification.address as `0x${string}`,
             functionName: 'mockIdentityVerification',
             args: [targetAddress],
             chainId,
